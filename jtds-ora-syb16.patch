@@ -1,0 +1,44 @@
+diff -C 3 -r -N jtds/src/main/net/sourceforge/jtds/jdbc/JtdsDatabaseMetaData.java jtds-syb16/src/main/net/sourceforge/jtds/jdbc/JtdsDatabaseMetaData.java
+*** jtds/src/main/net/sourceforge/jtds/jdbc/JtdsDatabaseMetaData.java	2013-06-08 12:27:50.000000000 +0200
+--- jtds-syb16/src/main/net/sourceforge/jtds/jdbc/JtdsDatabaseMetaData.java	2017-07-31 12:12:16.078562029 +0200
+***************
+*** 648,653 ****
+--- 648,657 ----
+       * @throws SQLException if a database-access error occurs.
+       */
+      public String getDatabaseProductVersion() throws SQLException {
++ 	if (serverType == Driver.SYBASE && connection.getDatabaseMajorVersion() == 16) {
++ 	    System.out.println("getDatabaseProductVersion: 15.90");
++ 	    return "15.90";
++         }
+          return connection.getDatabaseProductVersion();
+      }
+  
+***************
+*** 3298,3303 ****
+--- 3302,3312 ----
+       * Returns the database major version.
+       */
+      public int getDatabaseMajorVersion() throws SQLException {
++ 	if (serverType == Driver.SYBASE && connection.getDatabaseMajorVersion() == 16) {
++ 	    System.out.println("getDatabaseMajorVersion: 15");
++ 	    return 15;
++         }
++ 
+          return connection.getDatabaseMajorVersion();
+      }
+  
+***************
+*** 3305,3310 ****
+--- 3314,3324 ----
+       * Returns the database minor version.
+       */
+      public int getDatabaseMinorVersion() throws SQLException {
++ 	if (serverType == Driver.SYBASE && connection.getDatabaseMajorVersion() == 16) {
++ 	    System.out.println("getDatabaseMinorVersion: 90");
++ 	    return 90;
++ 	}
++ 
+          return connection.getDatabaseMinorVersion();
+      }
+  
